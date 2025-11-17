@@ -1,0 +1,12 @@
+[DEBUG] Connect SUCCESS to P1 (Prog: 0x20000001) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P2 (Prog: 0x20000002) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P3 (Prog: 0x20000003) after 1 attempt(s)
+[TXN_ERROR] P2 (0x20000002) failed to respond to PREPARE (Timeout/RPC error)
+[DEBUG] Connect SUCCESS to P1 (Prog: 0x20000001) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P2 (Prog: 0x20000002) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P3 (Prog: 0x20000003) after 1 attempt(s)
+Loaded 3 participants from participants.conf.
+Starting Coordinator Recovery: Scanning 0 transaction logs...
+Starting new transaction 1...
+Transaction 1 completed with decision = ABORT
+Coordinator finished.

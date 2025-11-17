@@ -1,0 +1,17 @@
+[DEBUG] Connect SUCCESS to P1 (Prog: 0x20000001) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P2 (Prog: 0x20000002) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P3 (Prog: 0x20000003) after 1 attempt(s)
+[FAILURE] Simulating crash during after_prepare
+Loaded 3 participants from participants.conf.
+Starting Coordinator Recovery: Scanning 0 transaction logs...
+Starting new transaction 1...
+[DEBUG] Connect SUCCESS to P1 (Prog: 0x20000001) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P2 (Prog: 0x20000002) after 1 attempt(s)
+[DEBUG] Connect SUCCESS to P3 (Prog: 0x20000003) after 1 attempt(s)
+Loaded 3 participants from participants.conf.
+Starting Coordinator Recovery: Scanning 1 transaction logs...
+[RECOVERY] Txn 1: Found START but no DECISION. Deciding ABORT...
+[RECOVERY] Txn 1: Aborted and recovered successfully.
+Recovery finished. Next transaction ID: 2
+[INFO] Coordinator finished recovery of Txn 1. Not starting a new transaction.
+Coordinator finished.
