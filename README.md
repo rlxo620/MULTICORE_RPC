@@ -1,6 +1,8 @@
 # proj3
 ## CODE DESIGN
+
 ### coordinator.c
+
 #### 1. maybe_fail
 로그 출력하고 exit
 #### 2. write_log
@@ -28,3 +30,60 @@ argument parsing 후 load participant와 run_recovery 호출 만약 recovery 할
 --------------------------------------
 
 ### paricipant.c
+
+#### 1. write_log
+prepared상태이고 vote 할 권리가 주어지면 fsync를 통해 기록
+#### 2. read_last_stae
+마지막 상태가 abort 였다면 vote_abort해야 되기 때문에 필요 
+#### 3. maybe_fail
+fail on prepare fail, fail after prepare, fail on commit fail on abort 등을 처리
+#### 4. prepare_1_svc 
+이전에 기록했던게 ABORT였으면 abort 반환. 만약 fail_on_prepare가 아니라면 VOTE_COMMIT으로 투표하고 로그에 기록. 여기서 fail_after_prepare라면 그대로 exit함. fail_on_prepare라면 VOTE_ABORT하고 로그 출력
+#### 5. commit_1_svc 
+commit log 기록 fail on commmit 있으면 그냥 exit
+#### 6. abort_1_svc 
+abort log 기록 fail on abort 있으면 그냥 exit
+#### 7. status_1_svc 
+status 확인하고 반환
+#### 8. parse_args
+participant 명령어 argument parsing후 Config구조체에 정보 기록
+#### 9. commit_prog_1
+commit_svc.c 에 정의되어 있긴 하나 participnat.c를 통해 main함수를 써야하고 거기서 commit_prog_1을 사용해야 하기 때문에 다시 정의
+#### 10. main
+먼저 명령어를 parsing하고 pmap_unset을 통해 해당 prog_numbe가 등록되어있으면 제거 진행 이후 svc_register를 통해 udp와 tcp 모두 등록하고 svc_run을 진행하며 rpc 시작
+
+----------------------------------------
+
+## BUILD && Execution Instruction
+
+### 1. participant, coordinator, commi_svc.c commit_clnt.c commit.h 생성
+
+    make
+
+### 2. commit_svc.c의 main 제거
+parsing 하는 부분이 필요하기 때문에 participant.c의 main을 써야하고 commit_svc.c 에서 main 지워야 함
+
+### 3. participant 재생성
+
+    make participant
+
+### 4. test 진행
+#### test1
+
+    ./test/test1.sh
+
+#### test2
+
+    ./test/test2.sh    
+
+#### test3
+
+    ./test/test3.sh
+
+#### test4
+
+    ./test/test4.sh
+
+### 5. result 확인
+fauilure injection 등의 log는 logs/test를 통해 확인 가능
+state의 경우 현재 디렉토리 내에 txn.log txn_1.log txn_2.log txn_3.log를 통해 확인 가능
