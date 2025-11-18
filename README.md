@@ -52,6 +52,17 @@ commit_svc.c 에 정의되어 있긴 하나 participnat.c를 통해 main함수�
 #### 10. main
 먼저 명령어를 parsing하고 pmap_unset을 통해 해당 prog_numbe가 등록되어있으면 제거 진행 이후 svc_register를 통해 udp와 tcp 모두 등록하고 svc_run을 진행하며 rpc 시작
 
+### test*.sh
+쉘파일 실행 전 reserve된 rpc를 제거하고 이전 로그를 제거하여 clean한 환경에서 test가 진행될 수 있도록 다음 명령어들을 추가함
+
+    rpcinfo -d 536870913 1 && rpcinfo -d 536870913 1 && rpcinfo -d 536870913 1
+    rm -rf txn*
+
+쉘 실행 후 participnat들이 확실하게 프로세스를 종료할 수 있도록 다음 명렁어들을 추가함
+
+    sleep 5
+    kill $P1 $P2 $P3
+
 ----------------------------------------
 
 ## BUILD && Execution Instruction
